@@ -1,0 +1,28 @@
+{
+	"name": "OmniverseCrosser",
+	"author": "LostAbaddon",
+	"description": "象桥：长毛象辅助工具",
+	"version": "1.0.0",
+	"homepage_url": "https://github.com/LostAbaddon/OmniverseCrosser",
+	"manifest_version": 3,
+	"permissions": [ "activeTab", "scripting", "storage", "contextMenus", "tabs", "webRequest" ],
+	"icons": {
+		"128": "mastodon.png"
+	},
+	"action": {
+		"default_title": "象桥",
+		"default_icon": "mastodon.png"
+	},
+	"background": {
+		"service_worker": "script/background.js",
+		"type": "module"
+	},
+	"content_scripts": [
+		{
+			"matches": ["<all_urls>"],
+			"js": [
+				"script/frontend.js"
+			]
+		}
+	]
+}
