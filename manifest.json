@@ -1,11 +1,11 @@
 {
-	"name": "OmniverseCrosser",
+	"name": "象桥 - OmniverseCrosser",
 	"author": "LostAbaddon",
 	"description": "象桥：长毛象辅助工具",
 	"version": "1.0.0",
 	"homepage_url": "https://github.com/LostAbaddon/OmniverseCrosser",
 	"manifest_version": 3,
-	"permissions": [ "activeTab", "scripting", "storage", "contextMenus", "tabs", "webRequest" ],
+	"permissions": [ "tabs", "activeTab" ],
 	"options_ui": {
 		"page": "page/option.html",
 		"open_in_tab": false
@@ -25,6 +25,8 @@
 		{
 			"matches": ["<all_urls>"],
 			"js": [
+				"common/kernel.js",
+				"common/communication.js",
 				"content/main.js"
 			]
 		}
