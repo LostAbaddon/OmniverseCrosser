@@ -1,18 +1,32 @@
+globalThis.IsTab = true;
+globalThis.IsInject = false;
+globalThis.TabID = -1;
 globalThis.OmniverseCrosser.init();
 
-OmniverseCrosser.listen('reply-test1', msg => {
-	console.log('Step 2 DONE', msg.data);
-	return "艹艹艹艹艹艹艹艹";
-});
-OmniverseCrosser.listen('reply-test2', msg => {
-	console.log('Step 3 DONE', msg.data);
+var InjectionDone = false;
+var TabIdInjected = false;
+
+OmniverseCrosser.inject(
+	"common/kernel.js",
+	"common/communication.js",
+	"injection/main.js"
+);
+
+OmniverseCrosser.listen('onInjected', () => {
+	InjectionDone = true;
+	if (TabID > 0) {
+		TabIdInjected = true;
+		injectTabID(TabID);
+	}
 });
 
-document.body.addEventListener('click', async () => {
-	console.log('Body On Click');
-	var result = await OmniverseCrosser.sendMsgAndWait('test1', 'fuck you');
-	console.log('Step 1 DONE', result.data);
-	OmniverseCrosser.sendMsg('test2', 'fuck you again');
+OmniverseCrosser.sendMsgAndWait('getTabId').then(result => {
+	globalThis.TabID = result.data;
+	if (!TabIdInjected && InjectionDone) {
+		TabIdInjected = true;
+		injectTabID(TabID);
+	}
+	console.log('[> Current Tab ID: ' + globalThis.TabID + ' <]');
 });
 
 console.log('Content :: Ready');

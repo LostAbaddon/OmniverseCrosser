@@ -29,15 +29,9 @@ const openUniPage = (url, isWin=false, type="normal", width=1000, height) => new
 		}
 	});
 });
-const getCurrentId = () => new Promise(res => {
-	chrome.tabs.getSelected(tab => {
-		res(tab.id);
-	});
-});
 
 globalThis.OmniverseCrosser = globalThis.OmniverseCrosser || {};
 
 OmniverseCrosser.Tab = {
 	openUniPage,
-	getCurrentId
 };

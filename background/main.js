@@ -2,6 +2,9 @@ import '../common/kernel.js';
 import '../common/communication.js';
 import { showOptionPage } from './option.js';
 
+globalThis.IsTab = false;
+globalThis.IsInject = false;
+globalThis.TabID = 0;
 globalThis.OmniverseCrosser.init();
 
 chrome.action.onClicked.addListener(async (tab) => {
@@ -14,15 +17,8 @@ chrome.action.onClicked.addListener(async (tab) => {
 // 	});
 // });
 
-OmniverseCrosser.listen('test1', msg => {
-	console.log('Backend-1 got msg:', msg.data);
-	return "FUCK YOU!!!";
-});
-OmniverseCrosser.listen('test2', async msg => {
-	console.log('Backend-2 got msg:', msg.data);
-	var result = await OmniverseCrosser.sendMsgAndWait('reply-test1', 'FUCK YOU AGAIN!!!');
-	console.log('Backend-3 got msg:', result.data);
-	OmniverseCrosser.sendMsg('reply-test2', 'FUCK YOU THIRD!!!');
+OmniverseCrosser.listen('getTabId', msg => {
+	return msg.from.id;
 });
 
 console.log('Backend :: Ready');
